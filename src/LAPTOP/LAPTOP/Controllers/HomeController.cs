@@ -1,25 +1,39 @@
-using System.Diagnostics;
-using LAPTOP.Models;
+﻿using LAPTOP.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 
 namespace LAPTOP.Controllers
 {
     public class HomeController : Controller
     {
+        private readonly LaptopDbContext _db;
+
+        public HomeController(LaptopDbContext db)
+        {
+            _db = db;
+        }
+
         public IActionResult Index()
         {
-            return View();
-        }
+            // laptop ngẫu nhiên
+            var hotProducts = _db.Products
+                                 .OrderBy(x => Guid.NewGuid())
+                                 .Take(5)
+                                 .ToList();
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
+            // Laptop Dell (brand_id = 1)
+            var dellProducts = _db.Products
+                                  .Where(p => p.brand_id == 1)
+                                  .ToList();
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            // tạo ViewModel
+            var vm = new HomeIndexViewModel
+            {
+                HotProducts = hotProducts,
+                DellProducts = dellProducts
+            };
+
+            return View(vm);
         }
     }
 }

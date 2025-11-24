@@ -1,15 +1,17 @@
-﻿@{
+﻿@model LAPTOP.Models.HomeIndexViewModel
+
+@{
     ViewData["Title"] = "Trang chủ - Cửa hàng Laptop Demo";
 }
 
 <div class="container main-content-top">
     <div class="hero-banner">
-        <img src="hinhanh/fhome_slider_item_desk_img5.jpg" alt="Banner Khuyến Mãi">
+        <img src="images/fhome_slider_item_desk_img5.jpg" alt="Banner Khuyến Mãi">
     </div>
 
     <div class="side-banners">
-        <img src="hinhanh/fhome_slider_item_desk_img7.jpg" alt="Side Banner 1">
-        <img src="hinhanh/fhome_slider_item_desk_img10.jpg" alt="Side Banner 2">
+        <img src="images/fhome_slider_item_desk_img7.jpg" alt="Side Banner 1">
+        <img src="images/fhome_slider_item_desk_img10.jpg" alt="Side Banner 2">
     </div>
 </div>
 
@@ -17,41 +19,30 @@
     <div class="container">
         <h2>DANH MỤC NỔI BẬT</h2>
         <div class="category-grid">
-            <a href="#" class="category-item">
-                <img src="https://via.placeholder.com/80x80?text=Laptop" alt="Laptop">
-                <span>Laptop Mới</span>
+            <a href="/Home/Dell" class="category-item">
+                <img src="~/images/laptop-dell.jpg" />
+                <span>Laptop Dell</span>
             </a>
             <a href="#" class="category-item">
-                <img src="https://via.placeholder.com/80x80?text=PC" alt="PC Gaming">
-                <span>PC Gaming</span>
+                <img src="~/images/laptop-dell.jpg" />
+                <span>Laptop Dell</span>
             </a>
             <a href="#" class="category-item">
-                <img src="https://via.placeholder.com/80x80?text=Monitor" alt="Màn hình">
-                <span>Màn hình</span>
+                <img src="~/images/laptop-dell.jpg" />
+                <span>Laptop Asus</span>
             </a>
             <a href="#" class="category-item">
-                <img src="https://via.placeholder.com/80x80?text=VGA" alt="Card Đồ họa">
-                <span>Card Đồ họa</span>
+                <img src="~/images/laptop-dell.jpg" />
+                <span>Laptop Lenovo</span>
             </a>
             <a href="#" class="category-item">
-                <img src="https://via.placeholder.com/80x80?text=CPU" alt="CPU">
-                <span>CPU</span>
-            </a>
-            <a href="#" class="category-item">
-                <img src="https://via.placeholder.com/80x80?text=Keyboard" alt="Bàn phím">
-                <span>Bàn phím</span>
-            </a>
-            <a href="#" class="category-item">
-                <img src="https://via.placeholder.com/80x80?text=Mouse" alt="Chuột">
-                <span>Chuột</span>
-            </a>
-            <a href="#" class="category-item">
-                <img src="https://via.placeholder.com/80x80?text=Headset" alt="Tai nghe">
-                <span>Tai nghe</span>
+                <img src="~/images/laptop-dell.jpg" />
+                <span>Laptop HP</span>
             </a>
         </div>
     </div>
 </section>
+
 
 <section class="product-section">
     <div class="container">
@@ -65,65 +56,81 @@
         </div>
 
         <div class="product-grid">
-            <div class="product-card">
-                <img src="https://via.placeholder.com/250x250?text=Laptop+ASUS+TUF" alt="Product Image">
-                <div class="product-info">
-                    <h3 class="product-title">Laptop Gaming ASUS TUF F15 (Core i5, RTX 3050)</h3>
-                    <div class="product-price">
-                        <span class="price-new">21.490.000 ₫</span>
-                        <span class="price-old">25.990.000 ₫</span>
-                    </div>
-                </div>
-                <div class="product-badge">-17%</div>
-            </div>
 
-            <div class="product-card">
-                <img src="https://via.placeholder.com/250x250?text=Laptop+Dell+Vostro" alt="Product Image">
-                <div class="product-info">
-                    <h3 class="product-title">Laptop Dell Vostro 3400 (Core i5, 8GB RAM, 512GB SSD)</h3>
-                    <div class="product-price">
-                        <span class="price-new">15.990.000 ₫</span>
-                        <span class="price-old">18.500.000 ₫</span>
-                    </div>
-                </div>
-                <div class="product-badge">-14%</div>
-            </div>
+            @foreach (var p in Model.HotProducts)
+            {
+                var percent = 0;
+                if (p.Sale_Price < p.Price && p.Price > 0)
+                {
+                    percent = (int)Math.Round(100 - (p.Sale_Price / p.Price * 100));
+                }
 
-            <div class="product-card">
-                <img src="https://via.placeholder.com/250x250?text=Macbook+Air+M1" alt="Product Image">
-                <div class="product-info">
-                    <h3 class="product-title">Apple Macbook Air M1 (8GB RAM, 256GB SSD)</h3>
-                    <div class="product-price">
-                        <span class="price-new">19.990.000 ₫</span>
-                        <span class="price-old">22.000.000 ₫</span>
-                    </div>
-                </div>
-                <div class="product-badge">-9%</div>
-            </div>
+                <div class="product-card">
+                    <img src="@p.Thumbnail" alt="@p.Name">
 
-            <div class="product-card">
-                <img src="https://via.placeholder.com/250x250?text=Laptop+Acer+Aspire" alt="Product Image">
-                <div class="product-info">
-                    <h3 class="product-title">Laptop Acer Aspire 7 Gaming (Ryzen 5, GTX 1650)</h3>
-                    <div class="product-price">
-                        <span class="price-new">16.990.000 ₫</span>
-                        <span class="price-old">20.000.000 ₫</span>
-                    </div>
-                </div>
-                <div class="product-badge">-15%</div>
-            </div>
+                    <div class="product-info">
+                        <h3 class="product-title">@p.Name</h3>
 
-            <div class="product-card">
-                <img src="https://via.placeholder.com/250x250?text=Laptop+HP+Pavilion" alt="Product Image">
-                <div class="product-info">
-                    <h3 class="product-title">Laptop HP Pavilion 15 (Core i7, 16GB RAM)</h3>
-                    <div class="product-price">
-                        <span class="price-new">24.990.000 ₫</span>
-                        <span class="price-old">27.000.000 ₫</span>
+                        <div class="product-price">
+                            <span class="price-new">@string.Format("{0:N0} ₫", p.Sale_Price)</span><br />
+                            <span class="price-old">@string.Format("{0:N0} ₫", p.Price)</span>
+                        </div>
                     </div>
+
+                    @if (percent > 0)
+                    {
+                        <div class="product-badge">-@percent%</div>
+                    }
                 </div>
-                <div class="product-badge">-7%</div>
+            }
+
+        </div>
+    </div>
+</section>
+
+
+
+<section class="product-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>LAPTOP DELL</h2>
+            <div class="section-tabs">
+                <a href="#" class="active">Laptop Gaming</a>
+                <a href="#">Laptop Văn phòng</a>
+                <a href="#">Laptop Đồ họa</a>
             </div>
+        </div>
+
+        <div class="product-grid">
+
+            @foreach (var p in Model.DellProducts)
+            {
+                var percent = 0;
+
+                if (p.Sale_Price < p.Price && p.Price > 0)
+                {
+                    percent = (int)Math.Round(100 - (p.Sale_Price / p.Price * 100));
+                }
+
+                <div class="product-card">
+                    <img src="@p.Thumbnail" alt="@p.Name">
+
+                    <div class="product-info">
+                        <h3 class="product-title">@p.Name</h3>
+
+                        <div class="product-price">
+                            <span class="price-new">@string.Format("{0:N0} ₫", p.Sale_Price)</span><br />
+                            <span class="price-old">@string.Format("{0:N0} ₫", p.Price)</span>
+                        </div>
+                    </div>
+
+                    @if (percent > 0)
+                    {
+                        <div class="product-badge">-@percent%</div>
+                    }
+                </div>
+            }
+
         </div>
     </div>
 </section>
