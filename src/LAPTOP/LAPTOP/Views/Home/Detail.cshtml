@@ -1,8 +1,103 @@
-﻿
-@{
-    ViewData["Title"] = "View";
-    Layout = "Detail";
+﻿@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h1>View</h1>
+@model LAPTOP.Models.ProductDetailViewModel
 
+<section class="product-detail">
+    <div class="container">
+
+        <div class="detail-wrapper">
+
+            <!-- LEFT: Ảnh sản phẩm -->
+            <div class="detail-image">
+                <img src="@Model.Product.Thumbnail" class="main-image" alt="@Model.Product.Name" />
+            </div>
+
+            <!-- RIGHT: Thông tin sản phẩm -->
+            <div class="detail-info">
+
+                <!-- Tên sản phẩm -->
+                <h1>@Model.Product.Name</h1>
+
+                <!-- Giá -->
+                <div class="detail-price">
+                    <span class="price-new">
+                        @string.Format("{0:N0} ₫", Model.Product.Sale_Price)
+                    </span>
+
+                    @if (Model.Product.Price > Model.Product.Sale_Price)
+                    {
+                        <span class="price-old">
+                            @string.Format("{0:N0} ₫", Model.Product.Price)
+                        </span>
+
+                        var percent = (int)Math.Round(100 - (Model.Product.Sale_Price / Model.Product.Price * 100));
+                        <span class="badge-sale">-@percent%</span>
+                    }
+                </div>
+
+                <!-- Khuyến mãi -->
+                <div class="promo-box">
+                    <h3>🎁 Khuyến mãi - ưu đãi</h3>
+                    <ul>
+                        <li>Tất cả khuyến mãi tại đây</li>
+                        <li>Miễn phí vận chuyển đơn trên 100K</li>
+                        <li>Đổi trả 7 ngày</li>
+                        <li>Bảo hành chính hãng</li>
+                    </ul>
+                </div>
+                <div class="detail-actions">
+                    <a class="btn-buy">MUA NGAY</a>
+
+                    <a href="/cart/add/@Model.Product.Id" class="btn-addcart">Thêm vào giỏ</a>
+
+                </div>
+
+
+                <!-- Mô tả ngắn -->
+                <div class="detail-short">
+                    <h3>Mô tả ngắn</h3>
+                    <p>@Html.Raw(Model.Product.Short_Desc)</p>
+                </div>
+
+            </div>
+
+        </div>
+
+        <!-- Sản phẩm liên quan -->
+        <div class="related-section">
+            <h2>Sản phẩm liên quan</h2>
+
+            <div class="product-grid">
+                @foreach (var p in Model.RelatedProducts)
+                {
+                    var percent = 0;
+                    if (p.Sale_Price < p.Price && p.Price > 0)
+                    {
+                        percent = (int)Math.Round(100 - (p.Sale_Price / p.Price * 100));
+                    }
+
+                    <div class="product-card">
+                        <a href="/Home/Detail/@p.Id">
+                            <img src="@p.Thumbnail" alt="@p.Name" />
+                        </a>
+
+                        <h3>@p.Name</h3>
+
+                        <div class="product-price">
+                            <span class="price-new">@string.Format("{0:N0} ₫", p.Sale_Price)</span>
+                            <span class="price-old">@string.Format("{0:N0} ₫", p.Price)</span>
+                        </div>
+
+                        @if (percent > 0)
+                        {
+                            <div class="product-badge">-@percent%</div>
+                        }
+                    </div>
+                }
+            </div>
+        </div>
+
+    </div>
+</section>

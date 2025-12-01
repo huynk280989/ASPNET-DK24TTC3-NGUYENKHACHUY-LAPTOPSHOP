@@ -1,0 +1,145 @@
+﻿.cart-container {
+    max-width: 1200px;
+    margin: 30px auto;
+    padding: 0 15px;
+}
+
+.cart-title {
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 20px;
+}
+
+.cart-wrapper {
+    display: flex;
+    gap: 30px;
+}
+
+/* LEFT TABLE */
+.cart-left {
+    flex: 2;
+}
+
+.cart-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+    .cart-table th {
+        text-align: left;
+        padding: 12px;
+        background: #f5f5f5;
+        font-weight: 600;
+    }
+
+.cart-item-row td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+}
+
+.cart-thumb {
+    width: 100px;
+    border-radius: 6px;
+}
+
+.cart-name {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.cart-price,
+.cart-total {
+    color: #d40000;
+    font-weight: 600;
+}
+
+.cart-qty input {
+    width: 60px;
+    padding: 5px;
+}
+
+/* XÓA */
+.cart-remove {
+    font-size: 20px;
+    color: #d40000;
+    text-decoration: none;
+}
+
+/* RIGHT SUMMARY BOX */
+.cart-right {
+    flex: 1;
+}
+
+.cart-summary {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.summary-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+/* Nút */
+.cart-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.btn-continue {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    border-radius: 30px;
+    background: #e60023;
+    color: white;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.btn-checkout {
+    flex: 1;
+    padding: 12px;
+    text-align: center;
+    border-radius: 30px;
+    border: 2px solid #e60023;
+    color: #e60023;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.note-label {
+    font-weight: 600;
+    margin-bottom: 8px;
+    display: block;
+}
+
+textarea {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border-radius: 6px;
+    border: 1px solid #ccc;
+}
+
+.installment-box {
+    margin-top: 20px;
+}
+
+    .installment-box h4 {
+        font-size: 16px;
+        font-weight: 700;
+        margin-bottom: 10px;
+    }
+
+    .installment-box ul {
+        padding-left: 18px;
+    }
+
+    .installment-box li {
+        margin-bottom: 5px;
+    }

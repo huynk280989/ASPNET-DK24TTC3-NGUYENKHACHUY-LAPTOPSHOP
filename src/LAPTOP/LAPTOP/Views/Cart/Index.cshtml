@@ -1,0 +1,87 @@
+﻿@model List<LAPTOP.Models.CartItem>
+
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<link rel="stylesheet" href="~/css/cart.css" />
+
+<div class="cart-container">
+
+    <h2 class="cart-title">GIỎ HÀNG</h2>
+
+    <div class="cart-wrapper">
+
+        <!-- LEFT: Danh sách sản phẩm -->
+        <div class="cart-left">
+
+            <table class="cart-table">
+                <thead>
+                    <tr>
+                        <th>Sản phẩm</th>
+                        <th>Mô Tả</th>
+                        <th>Giá</th>
+                        <th>Số Lượng</th>
+                        <th>Tổng</th>
+                        <th>Xóa</th>
+                    </tr>
+                </thead>
+
+                <tbody>
+                    @foreach (var item in Model)
+                    {
+                        <tr class="cart-item-row">
+                            <td>
+                                <img src="@item.Thumbnail" class="cart-thumb" />
+                            </td>
+
+                            <td class="cart-name">@item.Name</td>
+
+                            <td class="cart-price">@item.Price.ToString("N0") ₫</td>
+
+                            <td class="cart-qty">
+                                <form action="/Cart/Update" method="get">
+                                    <input type="hidden" name="id" value="@item.ProductId" />
+                                    <input type="number" name="quantity" value="@item.Quantity" min="1" />
+                                </form>
+                            </td>
+
+                            <td class="cart-total">@item.Total.ToString("N0") ₫</td>
+
+                            <td>
+                                <a href="/Cart/Remove/@item.ProductId" class="cart-remove">
+                                    🗑
+                                </a>
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+
+        </div>
+
+        <!-- RIGHT: Tổng tiền -->
+        <div class="cart-right">
+
+            <div class="cart-summary">
+
+                <div class="summary-row">
+                    <span>Tổng cộng</span>
+                    <strong>@Model.Sum(x => x.Total).ToString("N0") ₫</strong>
+                </div>
+
+                <div class="cart-buttons">
+                    <a href="/" class="btn-continue">TIẾP TỤC MUA SẮM</a>
+                    <a href="/Checkout" class="btn-checkout">THANH TOÁN</a>
+                </div>
+
+             
+               
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
