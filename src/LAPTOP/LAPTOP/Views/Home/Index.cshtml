@@ -24,15 +24,15 @@
                 <span>Laptop Dell</span>
             </a>
             <a href="#" class="category-item">
-                <img src="~/images/laptop-dell.jpg" />
-                <span>Laptop Dell</span>
+                <img src="~/images/giga-a16-1.jpeg" />
+                <span>Laptop Gigabyte</span>
             </a>
             <a href="#" class="category-item">
-                <img src="~/images/laptop-dell.jpg" />
+                <img src="~/images/giga-a16-3.jpeg" />
                 <span>Laptop Asus</span>
             </a>
             <a href="#" class="category-item">
-                <img src="~/images/laptop-dell.jpg" />
+                <img src="~/images/lenovo-legion-5-15.jpeg" />
                 <span>Laptop Lenovo</span>
             </a>
             <a href="#" class="category-item">
@@ -104,6 +104,94 @@
         <div class="product-grid">
 
             @foreach (var p in Model.DellProducts)
+            {
+                var percent = 0;
+
+                if (p.Sale_Price < p.Price && p.Price > 0)
+                {
+                    percent = (int)Math.Round(100 - (p.Sale_Price / p.Price * 100));
+                }
+
+                <div class="product-card">
+                    <img src="@p.Thumbnail" alt="@p.Name">
+
+                    <div class="product-info">
+                        <h3 class="product-title">@p.Name</h3>
+
+                        <div class="product-price">
+                            <span class="price-new">@string.Format("{0:N0} ₫", p.Sale_Price)</span><br />
+                            <span class="price-old">@string.Format("{0:N0} ₫", p.Price)</span>
+                        </div>
+                    </div>
+
+                    @if (percent > 0)
+                    {
+                        <div class="product-badge">-@percent%</div>
+                    }
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<section class="product-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>LAPTOP HP</h2>
+            <div class="section-tabs">
+                <a href="#" class="active">Laptop Gaming</a>
+                <a href="#">Laptop Văn phòng</a>
+                <a href="#">Laptop Đồ họa</a>
+            </div>
+        </div>
+
+        <div class="product-grid">
+
+            @foreach (var p in Model.HPProducts)
+            {
+                var percent = 0;
+
+                if (p.Sale_Price < p.Price && p.Price > 0)
+                {
+                    percent = (int)Math.Round(100 - (p.Sale_Price / p.Price * 100));
+                }
+
+                <div class="product-card">
+                    <img src="@p.Thumbnail" alt="@p.Name">
+
+                    <div class="product-info">
+                        <h3 class="product-title">@p.Name</h3>
+
+                        <div class="product-price">
+                            <span class="price-new">@string.Format("{0:N0} ₫", p.Sale_Price)</span><br />
+                            <span class="price-old">@string.Format("{0:N0} ₫", p.Price)</span>
+                        </div>
+                    </div>
+
+                    @if (percent > 0)
+                    {
+                        <div class="product-badge">-@percent%</div>
+                    }
+                </div>
+            }
+
+        </div>
+    </div>
+</section>
+<section class="product-section">
+    <div class="container">
+        <div class="section-header">
+            <h2>LAPTOP LENOVO</h2>
+            <div class="section-tabs">
+                <a href="#" class="active">Laptop Gaming</a>
+                <a href="#">Laptop Văn phòng</a>
+                <a href="#">Laptop Đồ họa</a>
+            </div>
+        </div>
+
+        <div class="product-grid">
+
+            @foreach (var p in Model.LenovoProducts)
             {
                 var percent = 0;
 

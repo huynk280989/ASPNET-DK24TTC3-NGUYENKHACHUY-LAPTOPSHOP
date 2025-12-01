@@ -12,10 +12,28 @@ namespace LAPTOP.Controllers
         {
             _db = db;
         }
+        public IActionResult Detail(int id)
+        {
+            var product = _db.Products.FirstOrDefault(p => p.Id == id);
+            if (product == null) return NotFound();
+
+            var related = _db.Products
+                             .Where(p => p.brand_id == product.brand_id && p.Id != id)
+                             .Take(8)
+                             .ToList();
+
+            var vm = new ProductDetailViewModel
+            {
+                Product = product,
+                RelatedProducts = related
+            };
+
+            return View(vm);
+        }
 
         public IActionResult Index()
         {
-            // laptop ngẫu nhiên
+            // Sản phẩm nổi bật (random 5 sản phẩm)
             var hotProducts = _db.Products
                                  .OrderBy(x => Guid.NewGuid())
                                  .Take(5)
@@ -26,11 +44,29 @@ namespace LAPTOP.Controllers
                                   .Where(p => p.brand_id == 1)
                                   .ToList();
 
-            // tạo ViewModel
+            // Laptop HP (brand_id = 2)
+            var hpProducts = _db.Products
+                                  .Where(p => p.brand_id == 2)
+                                  .ToList();
+
+            //  Laptop Asus (brand_id = 3)
+            var asusProducts = _db.Products
+                                  .Where(p => p.brand_id == 3)
+                                  .ToList();
+
+            // Laptop Lenovo (brand_id = 4)
+            var lenovoProducts = _db.Products
+                                    .Where(p => p.brand_id == 4)
+                                    .ToList();
+
+            // Tạo ViewModel và truyền vào View
             var vm = new HomeIndexViewModel
             {
                 HotProducts = hotProducts,
-                DellProducts = dellProducts
+                DellProducts = dellProducts,
+                HPProducts = hpProducts,
+                AsusProducts = asusProducts,
+                LenovoProducts = lenovoProducts
             };
 
             return View(vm);
