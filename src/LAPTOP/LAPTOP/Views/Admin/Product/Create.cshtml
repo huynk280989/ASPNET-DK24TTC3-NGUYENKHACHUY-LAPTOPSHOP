@@ -1,0 +1,48 @@
+﻿@model LAPTOP.Models.Product
+@{
+    ViewData["Title"] = "Thêm sản phẩm";
+}
+
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">➕ Thêm sản phẩm mới</h4>
+                </div>
+
+                <div class="card-body p-4">
+                    <form method="post">
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Tên sản phẩm</label>
+                            <input type="text" name="Name" class="form-control" placeholder="Nhập tên sản phẩm" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Ảnh sản phẩm (URL)</label>
+                            <input type="text" name="Thumbnail" class="form-control" placeholder="https://example.com/image.jpg" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Giá gốc</label>
+                            <input type="number" name="Price" class="form-control" placeholder="Nhập giá gốc" required />
+                        </div>
+
+                        <div class="mb-3">
+                            <label class="form-label fw-bold">Giá bán</label>
+                            <input type="number" name="Sale_Price" class="form-control" placeholder="Nhập giá bán" required />
+                        </div>
+
+                        <button class="btn btn-primary px-4 mt-2">💾 Lưu sản phẩm</button>
+                        <a href="/Admin/Product" class="btn btn-secondary mt-2 ms-2">⬅ Quay lại</a>
+                    </form>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+

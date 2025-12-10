@@ -1,37 +1,62 @@
 ﻿@model List<LAPTOP.Models.Product>
 
-<h2>Quản lý sản phẩm</h2>
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
 
-<a href="/Admin/Product/Create" class="btn btn-primary mb-3">+ Thêm sản phẩm</a>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 
-<table class="table table-bordered">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>Ảnh</th>
-            <th>Tên sản phẩm</th>
-            <th>Giá gốc</th>
-            <th>Giá bán</th>
-            <th>Hành động</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var p in Model)
-        {
-            <tr>
-                <td>@p.Id</td>
-                <td><img src="@p.Thumbnail" style="width:60px; border-radius:6px" /></td>
-                <td>@p.Name</td>
-                <td>@p.Price.ToString("N0") ₫</td>
-                <td>@p.Sale_Price.ToString("N0") ₫</td>
-                <td>
-                    <a class="btn btn-warning btn-sm" href="/Admin/Product/Edit/@p.Id">Sửa</a>
-                    <a class="btn btn-danger btn-sm" href="/Admin/Product/Delete/@p.Id">Xóa</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<div class="container py-4">
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Quản lý sản phẩm</h2>
+        <a href="/Admin/Product/Create" class="btn btn-primary px-4">
+            ➕ Thêm sản phẩm
+        </a>
+    </div>
+
+    <div class="table-responsive shadow-sm">
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+                <tr>
+                    <th style="width: 60px">Ảnh</th>
+                    <th>Tên sản phẩm</th>
+                    <th style="width: 140px">Giá gốc</th>
+                    <th style="width: 140px">Giá bán</th>
+                    <th style="width: 120px" class="text-center">Hành động</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var p in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@p.Thumbnail" class="rounded" style="width:60px; height:60px; object-fit:cover;" />
+                        </td>
+
+                        <td class="fw-semibold">@p.Name</td>
+
+                        <td>@p.Price.ToString("N0") ₫</td>
+
+                        <td class="text-danger fw-bold">@p.Sale_Price.ToString("N0") ₫</td>
+
+                        <td class="text-center">
+                            <a href="/Admin/Product/Edit/@p.Id" class="btn btn-sm btn-warning me-2">
+                                 Sửa
+                            </a>
+                            <a href="/Admin/Product/Delete/@p.Id" class="btn btn-sm btn-danger"
+                               onclick="return confirm('Bạn chắc chắn muốn xoá sản phẩm này?');">
+                                Xóa
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>
 
 
 

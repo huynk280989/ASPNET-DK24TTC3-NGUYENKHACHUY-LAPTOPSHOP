@@ -3,10 +3,10 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Kích hoạt MVC
+// Enable MVC
 builder.Services.AddControllersWithViews();
 
-// Đăng ký DbContext
+// Register DbContext
 builder.Services.AddDbContext<LaptopDbContext>(options =>
 {
     options.UseSqlServer(builder.Configuration.GetConnectionString("LaptopDb"));
@@ -23,7 +23,7 @@ builder.Services.AddSession(options =>
 
 var app = builder.Build();
 
-// Middleware pipeline
+// Middleware
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
@@ -34,13 +34,20 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
 app.UseSession();
-
 app.UseAuthorization();
 
+//  Route dành riêng cho ADMIN
+app.MapControllerRoute(
+    name: "admin",
+    pattern: "Admin/{controller=Product}/{action=Index}/{id?}");
+
+//  Route mặc định
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
 
 app.Run();
+
+
+

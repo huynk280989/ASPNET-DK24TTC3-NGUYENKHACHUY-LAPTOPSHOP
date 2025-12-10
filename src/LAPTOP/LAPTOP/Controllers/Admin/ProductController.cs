@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-namespace LAPTOP.Controllers.Admin
+namespace LAPTOP.Controllers
 {
     public class ProductController : Controller
     {
@@ -13,75 +13,92 @@ namespace LAPTOP.Controllers.Admin
             _db = db;
         }
 
-        // LIST
+        /* ================================
+         *  LIST
+         * ================================ */
         public IActionResult Index()
         {
-            var products = _db.Products.ToList();
-            return View(products);
+            var products = _db.Products
+                              .OrderByDescending(p => p.Id)
+                              .ToList();
+
+            return View("~/Views/Admin/Product/Index.cshtml", products);
         }
 
-        // CREATE - GET
+        /* ================================
+         *  CREATE - GET
+         * ================================ */
         public IActionResult Create()
         {
-            return View();
+            return View("~/Views/Admin/Product/Create.cshtml");
         }
 
-        // CREATE - POST
+        /* ================================
+         *  CREATE - POST
+         * ================================ */
         [HttpPost]
         public IActionResult Create(Product model)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Products.Add(model);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            if (!ModelState.IsValid)
+                return View("~/Views/Admin/Product/Create.cshtml", model);
 
-            return View(model);
+            _db.Products.Add(model);
+            _db.SaveChanges();
+
+            TempData["success"] = "Thêm sản phẩm thành công!";
+            return RedirectToAction("Index");
         }
 
-        // EDIT - GET
+        /* ================================
+         *  EDIT - GET
+         * ================================ */
         public IActionResult Edit(int id)
         {
-            var product = _db.Products.FirstOrDefault(p => p.Id == id);
-            if (product == null) return NotFound();
+            var product = _db.Products.FirstOrDefault(x => x.Id == id);
+            if (product == null)
+                return NotFound();
 
-            return View(product);
+            return View("~/Views/Admin/Product/Edit.cshtml", product);
         }
 
-        // EDIT - POST
+        /* ================================
+         *  EDIT - POST
+         * ================================ */
         [HttpPost]
         public IActionResult Edit(Product model)
         {
-            if (ModelState.IsValid)
-            {
-                _db.Products.Update(model);
-                _db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(model);
+            if (!ModelState.IsValid)
+                return View("~/Views/Admin/Product/Edit.cshtml", model);
+
+            var product = _db.Products.FirstOrDefault(x => x.Id == model.Id);
+            if (product == null)
+                return NotFound();
+
+            // Update fields
+            product.Name = model.Name;
+            product.Thumbnail = model.Thumbnail;
+            product.Price = model.Price;
+            product.Sale_Price = model.Sale_Price;
+
+            _db.SaveChanges();
+
+            TempData["success"] = "Cập nhật sản phẩm thành công!";
+            return RedirectToAction("Index");
         }
 
-        // DELETE - GET
+        /* ================================
+         *  DELETE
+         * ================================ */
         public IActionResult Delete(int id)
         {
-            var product = _db.Products.FirstOrDefault(p => p.Id == id);
-            if (product == null) return NotFound();
+            var product = _db.Products.FirstOrDefault(x => x.Id == id);
+            if (product == null)
+                return NotFound();
 
-            return View(product);
-        }
+            _db.Products.Remove(product);
+            _db.SaveChanges();
 
-        // DELETE - POST
-        [HttpPost, ActionName("Delete")]
-        public IActionResult DeleteConfirmed(int id)
-        {
-            var product = _db.Products.Find(id);
-            if (product != null)
-            {
-                _db.Products.Remove(product);
-                _db.SaveChanges();
-            }
-
+            TempData["success"] = "Xóa sản phẩm thành công!";
             return RedirectToAction("Index");
         }
     }
