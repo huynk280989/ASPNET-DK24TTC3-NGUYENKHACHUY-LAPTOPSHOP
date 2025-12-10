@@ -1,0 +1,37 @@
+﻿@model List<LAPTOP.Models.Product>
+
+<h2>Quản lý sản phẩm</h2>
+
+<a href="/Admin/Product/Create" class="btn btn-primary mb-3">+ Thêm sản phẩm</a>
+
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Ảnh</th>
+            <th>Tên sản phẩm</th>
+            <th>Giá gốc</th>
+            <th>Giá bán</th>
+            <th>Hành động</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.Id</td>
+                <td><img src="@p.Thumbnail" style="width:60px; border-radius:6px" /></td>
+                <td>@p.Name</td>
+                <td>@p.Price.ToString("N0") ₫</td>
+                <td>@p.Sale_Price.ToString("N0") ₫</td>
+                <td>
+                    <a class="btn btn-warning btn-sm" href="/Admin/Product/Edit/@p.Id">Sửa</a>
+                    <a class="btn btn-danger btn-sm" href="/Admin/Product/Delete/@p.Id">Xóa</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+

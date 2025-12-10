@@ -1,0 +1,77 @@
+﻿@model LAPTOP.Models.Order
+
+<div class="success-container">
+
+    <div class="success-box">
+        <div class="success-icon">✔</div>
+        <h2>Đặt hàng thành công!</h2>
+        <p>Cảm ơn bạn đã mua hàng tại <strong>Laptop Store</strong></p>
+
+        <div class="order-info">
+            <p><strong>Mã đơn hàng:</strong> @Model.Order_Code</p>
+            <p><strong>Khách hàng:</strong> @Model.Customer_Name</p>
+            <p><strong>Số điện thoại:</strong> @Model.Customer_Phone</p>
+            <p><strong>Email:</strong> @Model.Customer_Email</p>
+            <p><strong>Địa chỉ giao hàng:</strong> @Model.Customer_Address</p>
+            <p><strong>Tổng thanh toán:</strong> @Model.Total.ToString("N0") ₫</p>
+        </div>
+
+        <a href="/" class="btn-home">Tiếp tục mua sắm</a>
+    </div>
+
+</div>
+
+<style>
+    .success-container {
+        display: flex;
+        justify-content: center;
+        padding: 40px 0;
+    }
+
+    .success-box {
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        text-align: center;
+        max-width: 600px;
+        width: 100%;
+        box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .success-icon {
+        width: 70px;
+        height: 70px;
+        border-radius: 50%;
+        background: #28a745;
+        color: white;
+        font-size: 40px;
+        line-height: 70px;
+        margin: 0 auto 20px;
+    }
+
+    .order-info {
+        text-align: left;
+        margin-top: 20px;
+        line-height: 1.8;
+        font-size: 16px;
+    }
+
+    .btn-home {
+        display: inline-block;
+        margin-top: 25px;
+        padding: 12px 25px;
+        background: #007bff;
+        color: white;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        transition: 0.2s;
+    }
+
+        .btn-home:hover {
+            background: #0056b3;
+        }
+</style>
+
+
+

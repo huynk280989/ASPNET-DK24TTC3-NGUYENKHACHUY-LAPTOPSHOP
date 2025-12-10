@@ -1,6 +1,6 @@
 ﻿using LAPTOP.Models;
 using Microsoft.AspNetCore.Mvc;
-
+using LAPTOP.Extensions;
 namespace LAPTOP.Controllers
 {
     public class CartController : Controller
